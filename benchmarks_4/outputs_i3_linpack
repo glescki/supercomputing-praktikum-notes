@@ -1,0 +1,23 @@
+sudo nvidia-smi
+sudo nvidia-smi -pm 1
+sudo nvidia-smi -q -d SUPPORTED_CLOCKS
+sudo nvidia-smi -ac 2600,758
+sudo nvidia-smi -q -d CLOCK
+sudo nvidia-smi -pm 0
+
+module load gcc/6.1.0
+module load cuda/8.0.61
+module load openmpi/1.10.2
+module load numactl
+
+nvprof --csv --system-profiling on --print-gpu-trace --log-file out.txt
+
+cat out.txt | grep mW | cut -d"\"" -f 4 | sort -rn | head -n1
+
+928.3 / 223.998
+897.8 / 205.004
+852.4 / 194.118
+828.0 / 179.702
+796.1 / 171.293 
+
+324 0.00434372
